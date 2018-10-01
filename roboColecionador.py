@@ -17,7 +17,7 @@ class Robo:
         """Retorna estado do robo."""
         return str(self.estado)
 
-    def orientacao(posicao, cmd, estado):
+    def orientacao(cmd, estado):
         """Altera a orientacao."""
         if estado == 'N':
             if cmd == 'E':
@@ -49,6 +49,16 @@ class Arena:
         self.n = int(n)
         self.m = int(m)
         self.robo = robo
+        self.arena = []
+        self.robo.posicao = 0
+        for i in range(n):
+            entrada = input()
+            line = []
+            for j in range(m):
+                line.append(entrada[j])
+                if not self.robo.posicao != 0:
+                    Arena.encontraPos(entrada[j], j, i)
+            self.arena.append(line)
 
     def __repr__(self):
         """Plota arena."""
@@ -56,24 +66,27 @@ class Arena:
 
         # resolver como plotar o arena
 
-        #  for i in range(self.arena):
-        #    plote = plote + str(i) + '\n'
+        for i in range(self.arena):
+            plote = plote + str(i) + '\n'
         return plote
 
-    def encontraPos(entrada, x, y, posicao):
+    def encontraPos(self, entrada, x, y):
         """Encontra o robo."""
         j = x
         i = y
 
         if entrada == 'N':
-            posicao = (j, i)
+            self.robo.posicao = (j, i)
+            self.robo.estado = entrada
         elif entrada == 'S':
-            posicao = (j, i)
+            self.robo.posicao = (j, i)
+            self.robo.estado = entrada
         elif entrada == 'L':
-            posicao = (j, i)
+            self.robo.posicao = (j, i)
+            self.robo.estado = entrada
         elif entrada == 'S':
-            posicao = (j, i)
-        return posicao
+            self.robo.posicao = (j, i)
+            self.robo.estado = entrada
 
 
 def criaArena():
