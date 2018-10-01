@@ -19,26 +19,13 @@ class Robo:
 
     def orientacao(cmd, estado):
         """Altera a orientacao."""
-        if estado == 'N':
-            if cmd == 'E':
-                estado = 'O'
-            elif cmd == 'D':
-                estado = 'L'
-        elif estado == 'S':
-            if cmd == 'D':
-                estado = 'O'
-            elif cmd == 'E':
-                estado = 'L'
-        elif estado == 'L':
-            if cmd == 'D':
-                estado = 'N'
-            elif cmd == 'E':
-                estado = 'S'
-        elif estado == 'O':
-            if cmd == 'E':
-                estado = 'N'
-            elif cmd == 'D':
-                estado == 'S'
+        oriD = {'N': 'L', 'L': 'S', 'S': 'O', 'O': 'N'}
+        oriE = {'N': 'O', 'O': 'S', 'S': 'L', 'L': 'S'}
+
+        if cmd == 'D':
+            estado = oriD[estado]
+        elif cmd == 'E':
+            estado = oriE[estado]
 
 
 class Arena:
@@ -103,7 +90,5 @@ def criaArena():
         for j in range(m):
             line.append(entrada[j])
             if not posicao != 0:
-                # posicao já encontrada, não precisa mais procurar.
-                # lembrar de zerar no proximo loop.
                 posicao = Arena.encontraPos(entrada[j], j, i, posicao)
         arena.append(line)
