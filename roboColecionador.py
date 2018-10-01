@@ -17,15 +17,19 @@ class Robo:
         """Retorna estado do robo."""
         return str(self.estado)
 
-    def orientacao(cmd, estado):
+    def orientacao(self, cmd, estado):
         """Altera a orientacao."""
         oriD = {'N': 'L', 'L': 'S', 'S': 'O', 'O': 'N'}
         oriE = {'N': 'O', 'O': 'S', 'S': 'L', 'L': 'S'}
 
         if cmd == 'D':
-            estado = oriD[estado]
+            self.robo.estado = oriD[estado]
         elif cmd == 'E':
-            estado = oriE[estado]
+            self.robo.estado = oriE[estado]
+
+    def anda(self):
+        """Faz andar."""
+        # falta implemetar
 
 
 class Arena:
@@ -74,21 +78,3 @@ class Arena:
         elif entrada == 'S':
             self.robo.posicao = (j, i)
             self.robo.estado = entrada
-
-
-def criaArena():
-    """Cria Arena."""
-    linha = input().split()
-    n, m, s = linha
-    n, m, s = int(n), int(m), int(s)
-    arena = []
-    posicao = 0
-
-    for i in range(n):
-        entrada = input()
-        line = []
-        for j in range(m):
-            line.append(entrada[j])
-            if not posicao != 0:
-                posicao = Arena.encontraPos(entrada[j], j, i, posicao)
-        arena.append(line)
