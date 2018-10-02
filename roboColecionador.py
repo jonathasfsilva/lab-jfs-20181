@@ -30,42 +30,19 @@ class Robo:
     def anda(self):
         """Faz andar."""
         # falta implemetar
+        if self.robo.estado == 'L':
+            linha = Arena.n
+            coluna = Arena.m
+            self.robo.posicao = (coluna + 1, linha)
 
 
 class Arena:
     """Classe Arena."""
 
-    def __init__(self, n, m, robo):
-        """Construtor."""
-        self.n = int(n)
-        self.m = int(m)
-        self.robo = robo
-        self.arena = []
-        self.robo.posicao = 0
-        for i in range(n):
-            entrada = input()
-            line = []
-            for j in range(m):
-                line.append(entrada[j])
-                if not self.robo.posicao != 0:
-                    Arena.encontraPos(entrada[j], j, i)
-            self.arena.append(line)
-
-    def __repr__(self):
-        """Plota arena."""
-        plote = ''
-
-        # resolver como plotar o arena
-
-        for i in range(self.arena):
-            plote = plote + str(i) + '\n'
-        return plote
-
     def encontraPos(self, entrada, x, y):
-        """Encontra o robo."""
-        j = x
-        i = y
-
+        """Enc."""
+        j = y
+        i = x
         if entrada == 'N':
             self.robo.posicao = (j, i)
             self.robo.estado = entrada
@@ -78,3 +55,29 @@ class Arena:
         elif entrada == 'S':
             self.robo.posicao = (j, i)
             self.robo.estado = entrada
+
+    def __init__(self, n, m, robo):
+        """Construtor."""
+        self.n = int(n)  # Linha
+        self.m = int(m)  # Coluna
+        self.robo = robo
+        self.arena = []
+        self.robo.posicao = 0
+        for i in range(m):
+            entrada = input()
+            line = []
+            for j in range(n):
+                line.append(entrada[j])
+                if not self.robo.posicao != 0:
+                    self.encontraPos(entrada[j], j, i)
+            self.arena.append(line)
+
+    def __repr__(self):
+        """Plota arena."""
+        plote = ''
+
+        # resolver como plotar o arena
+
+        for i in self.arena:
+            plote = plote + str(i) + '\n'
+        return plote
