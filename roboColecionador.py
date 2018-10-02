@@ -30,10 +30,11 @@ class Robo:
     def anda(self):
         """Faz andar."""
         # falta implemetar
-        if self.robo.estado == 'L':
-            linha = Arena.n
-            coluna = Arena.m
-            self.robo.posicao = (coluna + 1, linha)
+        # BUG: Nao ta pegando as linhas e colunas
+        if self.estado == 'L':
+            linha = Arena.linha
+            coluna = Arena.coluna
+            self.posicao = (linha + 1, coluna)
 
 
 class Arena:
@@ -56,17 +57,17 @@ class Arena:
             self.robo.posicao = (j, i)
             self.robo.estado = entrada
 
-    def __init__(self, n, m, robo):
+    def __init__(self, linha, coluna, robo):
         """Construtor."""
-        self.n = int(n)  # Linha
-        self.m = int(m)  # Coluna
+        self.linha = int(linha)  # Linha
+        self.coluna = int(coluna)  # Coluna
         self.robo = robo
         self.arena = []
         self.robo.posicao = 0
-        for i in range(m):
+        for i in range(linha):
             entrada = input()
             line = []
-            for j in range(n):
+            for j in range(coluna):
                 line.append(entrada[j])
                 if not self.robo.posicao != 0:
                     self.encontraPos(entrada[j], j, i)
@@ -75,9 +76,6 @@ class Arena:
     def __repr__(self):
         """Plota arena."""
         plote = ''
-
-        # resolver como plotar o arena
-
         for i in self.arena:
             plote = plote + str(i) + '\n'
         return plote
