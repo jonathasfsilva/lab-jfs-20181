@@ -29,33 +29,26 @@ class Robo:
 
     def anda(self):
         """Faz andar."""
-        # falta implemetar
-        # BUG: Nao ta pegando as linhas e colunas
         if self.estado == 'L':
-            linha = Arena.linha
-            coluna = Arena.coluna
+            linha = self.posicao[0]
+            coluna = self.posicao[1]
             self.posicao = (linha + 1, coluna)
+        elif self.estado == 'N':
+            linha = self.posicao[0]
+            coluna = self.posicao[1]
+            self.posicao = (linha, coluna - 1)
+        elif self.estado == 'S':
+            linha = self.posicao[0]
+            coluna = self.posicao[1]
+            self.posicao = (linha, coluna + 1)
+        elif self.estado == 'O':
+            linha = self.posicao[0]
+            coluna = self.posicao[1]
+            self.posicao = (linha - 1, coluna)
 
 
 class Arena:
     """Classe Arena."""
-
-    def encontraPos(self, entrada, x, y):
-        """Enc."""
-        j = y
-        i = x
-        if entrada == 'N':
-            self.robo.posicao = (j, i)
-            self.robo.estado = entrada
-        elif entrada == 'S':
-            self.robo.posicao = (j, i)
-            self.robo.estado = entrada
-        elif entrada == 'L':
-            self.robo.posicao = (j, i)
-            self.robo.estado = entrada
-        elif entrada == 'S':
-            self.robo.posicao = (j, i)
-            self.robo.estado = entrada
 
     def __init__(self, linha, coluna, robo):
         """Construtor."""
@@ -79,3 +72,20 @@ class Arena:
         for i in self.arena:
             plote = plote + str(i) + '\n'
         return plote
+
+    def encontraPos(self, entrada, x, y):
+        """Enc."""
+        j = y
+        i = x
+        if entrada == 'N':
+            self.robo.posicao = (j, i)
+            self.robo.estado = entrada
+        elif entrada == 'S':
+            self.robo.posicao = (j, i)
+            self.robo.estado = entrada
+        elif entrada == 'L':
+            self.robo.posicao = (j, i)
+            self.robo.estado = entrada
+        elif entrada == 'S':
+            self.robo.posicao = (j, i)
+            self.robo.estado = entrada
