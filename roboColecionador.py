@@ -30,9 +30,11 @@ class Robo:
     def anda(self):
         """Faz andar."""
         if self.estado == 'L':
+            Arena.posAnteior(self, self.posicao)
             linha = self.posicao[0]
             coluna = self.posicao[1]
             self.posicao = (linha + 1, coluna)
+            Arena.posPosterior(self, self.posicao, self.estado)
         elif self.estado == 'N':
             linha = self.posicao[0]
             coluna = self.posicao[1]
@@ -89,3 +91,17 @@ class Arena:
         elif entrada == 'S':
             self.robo.posicao = (j, i)
             self.robo.estado = entrada
+
+    def posAnteior(self, posicao):
+        """Altera na Arena a posicao anterior."""
+        # # BUG: NÃO TA FAZENDO MUDANÇA DE POSIÇÃO
+        linha = self.robo.posicao[0]
+        coluna = self.robo.posicao[1]
+        self.arena[linha][coluna] = '.'
+
+    def posPosterior(self, posicao, estado):
+        """Altera na Arena a posicao posterior ao movimento."""
+        # # BUG: NÃO TA FAZENDO A MUDANÇA DE POSIÇÃO.
+        linha = self.robo.posicao[0]
+        coluna = self.robo.posicao[1]
+        self.arena[linha][coluna] = estado
