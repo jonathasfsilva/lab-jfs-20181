@@ -1,111 +1,102 @@
-u"""Robô Colecionador.
-
-Lab
-"""
+"""Edfd."""
 
 
-class Robo:
-    """Classe Robo."""
-
-    def __init__(self, posicao, estado, pontos):
-        """Construtor."""
-        self.posicao = posicao
-        self.estado = estado
-        self.pontos = pontos
-
-    def __repr__(self):
-        """Retorna estado do robo."""
-        return str(self.estado)
-
-    def orientacao(self, cmd, estado):
-        """Altera a orientacao."""
-        oriD = {'N': 'L', 'L': 'S', 'S': 'O', 'O': 'N'}
-        oriE = {'N': 'O', 'O': 'S', 'S': 'L', 'L': 'S'}
-
-        if cmd == 'D':
-            self.robo.estado = oriD[estado]
-        elif cmd == 'E':
-            self.robo.estado = oriE[estado]
-
-    def anda(self):
-        """Faz andar."""
-        if self.estado == 'L':
-            Arena.posAnteior(self)
-            linha = self.posicao[0]
-            coluna = self.posicao[1]
-            self.posicao = (linha + 1, coluna)
-            Arena.posPosterior(self, self.posicao, self.estado)
-        elif self.estado == 'N':
-            linha = self.posicao[0]
-            coluna = self.posicao[1]
-            self.posicao = (linha, coluna - 1)
-        elif self.estado == 'S':
-            linha = self.posicao[0]
-            coluna = self.posicao[1]
-            self.posicao = (linha, coluna + 1)
-        elif self.estado == 'O':
-            linha = self.posicao[0]
-            coluna = self.posicao[1]
-            self.posicao = (linha - 1, coluna)
+def encontraPos(entrada, x, y):
+    """DDD."""
+    pos = 0
+    if entrada == 'N':
+        pos = (x, y)
+    elif entrada == 'S':
+        pos = (x, y)
+    elif entrada == 'L':
+        pos = (x, y)
+    elif entrada == 'O':
+        pos = (x, y)
+    return pos
 
 
-class Arena:
-    """Classe Arena."""
+def orientacao(cmd, estado):
+    """Altera a orientacao."""
+    oriD = {'N': 'L', 'L': 'S', 'S': 'O', 'O': 'N'}
+    oriE = {'N': 'O', 'O': 'S', 'S': 'L', 'L': 'N'}
+    if cmd == 'D':
+        estado = oriD[estado]
+    elif cmd == 'E':
+        estado = oriE[estado]
+    return estado
 
-    def __init__(self, linha, coluna, robo):
-        """Construtor."""
-        self.linha = int(linha)  # Linha
-        self.coluna = int(coluna)  # Coluna
-        self.robo = robo
-        self.arena = []
-        self.robo.posicao = 0
-        for i in range(linha):
-            entrada = input()
-            line = []
-            for j in range(coluna):
-                line.append(entrada[j])
-                if not self.robo.posicao != 0:
-                    self.encontraPos(entrada[j], j, i)
-            self.arena.append(line)
 
-    def __repr__(self):
-        """Plota arena."""
-        plote = ''
-        for i in self.arena:
-            plote = plote + str(i) + '\n'
-        return plote
+def ponto(arena, posicao):
+    """AAA."""
+    linha = posicao[0]
+    coluna = posicao[1]
+    arena[linha][coluna] = '.'
+    return arena
 
-    def encontraPos(self, entrada, x, y):
-        """Enc."""
-        j = y
-        i = x
-        if entrada == 'N':
-            self.robo.posicao = (j, i)
-            self.robo.estado = entrada
-        elif entrada == 'S':
-            self.robo.posicao = (j, i)
-            self.robo.estado = entrada
-        elif entrada == 'L':
-            self.robo.posicao = (j, i)
-            self.robo.estado = entrada
-        elif entrada == 'S':
-            self.robo.posicao = (j, i)
-            self.robo.estado = entrada
 
-    def ponto(self, linha, coluna):
-        """t."""
-        self.arena[linha][coluna] = '.'
+def lugar(arena, posicao, estado):
+    """AAA."""
+    linha = posicao[0]
+    coluna = posicao[1]
+    arena[linha][coluna] = estado
+    return arena
 
-    def posAnteior(self):
-        """Altera na Arena a posicao anterior."""
-        # # BUG: NÃO TA FAZENDO MUDANÇA DE POSIÇÃO
-        linha = self.posicao[0]
-        coluna = self.posicao[1]
-        Arena.ponto(self, linha, coluna)
 
-    def posPosterior(self, posicao, estado):
-        """Altera na Arena a posicao posterior ao movimento."""
-        # # BUG: NÃO TA FAZENDO A MUDANÇA DE POSIÇÃO.
-        linha = self.posicao[0]
-        coluna = self.posicao[1]
-        self.arena[linha][coluna] = estado
+def andar(estado, posicao, arena, n, m):
+    """Andar."""
+    linha = posicao[0]
+    coluna = posicao[1]
+    if estado == 'N' and (linha - 1) >= 0:
+        if arena[linha - 1][coluna] != '#':
+            posicao = (linha - 1, coluna)
+    elif estado == 'L' and (coluna + 1) < m:
+        if arena[linha][coluna + 1] != '#':
+            posicao = (linha, coluna + 1)
+    elif estado == 'S' and (linha + 1) < n:
+        if arena[linha + 1][coluna] != '#':
+            posicao = (linha + 1, coluna)
+    elif estado == 'O' and (coluna - 1) >= 0:
+        if arena[linha][coluna - 1] != '#':
+            posicao = (linha, coluna - 1)
+    return posicao
+
+
+def pontua(arena, posicao, pontos):
+    """AAdf."""
+    linha = posicao[0]
+    coluna = posicao[1]
+    if arena[linha][coluna] == '*':
+        pontos += 1
+    return pontos
+
+
+while True:
+    estado = ''
+    posicao = 0
+    pontos = 0
+    arena = []
+    entrada = input().split()
+    linha, coluna, acoes = entrada
+    linha, coluna, acoes = int(linha), int(coluna), int(acoes)
+    if linha == 0 and coluna == 0 and acoes == 0:
+        break
+    for i in range(linha):
+        entrada = input()
+        line = []
+        for j in range(coluna):
+            line.append(entrada[j])
+            if not posicao != 0:
+                posicao = encontraPos(entrada[j], i, j)
+                estado = entrada[j]
+        arena.append(line)
+    comandos = input()
+
+    for i in range(acoes):
+        arena = ponto(arena, posicao)
+        if comandos[i] == 'F':
+            posicao = andar(estado, posicao, arena, linha, coluna)
+        else:
+            estado = orientacao(comandos[i], estado)
+        pontos = pontua(arena, posicao, pontos)
+        arena = lugar(arena, posicao, estado)
+    print(pontos)
