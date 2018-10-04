@@ -1,8 +1,12 @@
-"""Edfd."""
+"""RoboColecionador.
+
+ex1 - Lab. 2018.2
+Jonathas Felipe da Silva
+"""
 
 
 def encontraPos(entrada, x, y):
-    """DDD."""
+    """Encontra a posicao do robo."""
     pos = 0
     if entrada == 'N':
         pos = (x, y)
@@ -27,7 +31,7 @@ def orientacao(cmd, estado):
 
 
 def ponto(arena, posicao):
-    """AAA."""
+    """Bota o ponto na antiga posicao do robo."""
     linha = posicao[0]
     coluna = posicao[1]
     arena[linha][coluna] = '.'
@@ -35,7 +39,7 @@ def ponto(arena, posicao):
 
 
 def lugar(arena, posicao, estado):
-    """AAA."""
+    """Bota o robo na nova posicao."""
     linha = posicao[0]
     coluna = posicao[1]
     arena[linha][coluna] = estado
@@ -43,7 +47,7 @@ def lugar(arena, posicao, estado):
 
 
 def andar(estado, posicao, arena, n, m):
-    """Andar."""
+    """Faz o robo andar."""
     linha = posicao[0]
     coluna = posicao[1]
     if estado == 'N' and (linha - 1) >= 0:
@@ -62,7 +66,7 @@ def andar(estado, posicao, arena, n, m):
 
 
 def pontua(arena, posicao, pontos):
-    """AAdf."""
+    """Verifica se o robo pontuou."""
     linha = posicao[0]
     coluna = posicao[1]
     if arena[linha][coluna] == '*':
