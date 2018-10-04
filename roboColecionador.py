@@ -56,11 +56,11 @@ while True:
             x = posicao[0]
             y = posicao[1]
             arena[posicao[0]][posicao[1]] = '.'
-            if estado == 'N' and (x - 1) >= 0 and arena[x][y] != '#':
+            if estado == 'N' and (x - 1) >= 0 and arena[x-1][y] != '#':
                 posicao = ((x-1), y)
             elif estado == 'L' and (y + 1) < coluna and arena[x][y + 1] != '#':
                 posicao = (x, y + 1)
-            elif estado == 'S' and (x + 1) < linha and arena[x+1][y]:
+            elif estado == 'S' and (x + 1) < linha and arena[x+1][y] != '#':
                 posicao = (x + 1, y)
             elif estado == 'O' and (y - 1) >= 0 and arena[x][y-1] != '#':
                 posicao = (x, y - 1)
