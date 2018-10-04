@@ -30,50 +30,6 @@ def orientacao(cmd, estado):
     return estado
 
 
-def ponto(arena, posicao):
-    """Bota o ponto na antiga posicao do robo."""
-    linha = posicao[0]
-    coluna = posicao[1]
-    arena[linha][coluna] = '.'
-    return arena
-
-
-def lugar(arena, posicao, estado):
-    """Bota o robo na nova posicao."""
-    linha = posicao[0]
-    coluna = posicao[1]
-    arena[linha][coluna] = estado
-    return arena
-
-
-def andar(estado, posicao, arena, n, m):
-    """Faz o robo andar."""
-    linha = posicao[0]
-    coluna = posicao[1]
-    if estado == 'N' and (linha - 1) >= 0:
-        if arena[linha - 1][coluna] != '#':
-            posicao = (linha - 1, coluna)
-    elif estado == 'L' and (coluna + 1) < m:
-        if arena[linha][coluna + 1] != '#':
-            posicao = (linha, coluna + 1)
-    elif estado == 'S' and (linha + 1) < n:
-        if arena[linha + 1][coluna] != '#':
-            posicao = (linha + 1, coluna)
-    elif estado == 'O' and (coluna - 1) >= 0:
-        if arena[linha][coluna - 1] != '#':
-            posicao = (linha, coluna - 1)
-    return posicao
-
-
-def pontua(arena, posicao, pontos):
-    """Verifica se o robo pontuou."""
-    linha = posicao[0]
-    coluna = posicao[1]
-    if arena[linha][coluna] == '*':
-        pontos += 1
-    return pontos
-
-
 while True:
     estado = ''
     posicao = 0
@@ -96,11 +52,24 @@ while True:
     comandos = input()
 
     for i in range(acoes):
-        arena = ponto(arena, posicao)
         if comandos[i] == 'F':
-            posicao = andar(estado, posicao, arena, linha, coluna)
+            x = posicao[0]
+            y = posicao[1]
+            arena[posicao[0]][posicao[1]] = '.'
+            if estado == 'N' and (x - 1) >= 0 and arena[x][y] != '#':
+                posicao = ((x-1), y)
+            elif estado == 'L' and (y + 1) < coluna and arena[x][y + 1] != '#':
+                posicao = (x, y + 1)
+            elif estado == 'S' and (x + 1) < linha and arena[x+1][y]:
+                posicao = (x + 1, y)
+            elif estado == 'O' and (y - 1) >= 0 and arena[x][y-1] != '#':
+                posicao = (x, y - 1)
+            x = posicao[0]
+            y = posicao[1]
+            if arena[x][y] == '*':
+                pontos += 1
+            arena[x][y] = estado
         else:
             estado = orientacao(comandos[i], estado)
-        pontos = pontua(arena, posicao, pontos)
-        arena = lugar(arena, posicao, estado)
+
     print(pontos)
