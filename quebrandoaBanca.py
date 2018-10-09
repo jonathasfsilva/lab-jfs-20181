@@ -1,4 +1,5 @@
 """Quebrando a banca."""
+saida = []
 while True:
     try:
         entrada = input().split()
@@ -8,14 +9,15 @@ while True:
         inicio = 0
         fim = tamanho - tirar + 1
         resultado = []
-        print(inicio, fim)
         for x in range(tamanho - tirar, 0, -1):
             maior = max(saldo[inicio:fim])
-            resultado.append(maior)
+            resultado.append(str(maior))
             inicio = saldo[inicio:].index(maior) + inicio + 1
             fim = tamanho - x + 2
-            print(inicio, fim)
-        print(resultado)
+        b = ''
+        saida.append(b.join(resultado))
     except:
         print('passei aqui')
         break
+for i in saida:
+    print(i)
