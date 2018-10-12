@@ -14,10 +14,9 @@ while True:
             resultado.append(str(maior))
             inicio = saldo[inicio:].index(maior) + inicio + 1
             fim = tamanho - x + 2
-        b = ''
-        saida.append(b.join(resultado))
+        plote = ''
+        saida.append(plote.join(resultado))
     except:
-        print('passei aqui')
         break
 for i in saida:
     print(i)
