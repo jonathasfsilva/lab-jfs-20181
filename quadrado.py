@@ -27,17 +27,15 @@ linha = None
 for x in range(n-1):
     if somasColunas[n-1] != somasColunas[x]:
         coluna = x
-        if x >= 1 and somasColunas[x] != somasColunas[0]:
-            coluna = x + 1
     if somasLinhas[n-1] != somasLinhas[x]:
         linha = x
-        if x >= 1 and somasLinhas[x] != somasLinhas[0]:
-            linha = x + 1
 else:
-    if coluna == None:
+    if somasColunas[n-1] != somasColunas[0] == somasColunas[1]:
         coluna = n-1
-    if linha == None:
+    if somasLinhas[n-1] != somasLinhas[0] == somasLinhas[1]:
         linha = n-1
+
+valor = quadrado[linha][coluna]
 
 print(somasLinhas, somasColunas)
 print(linha, coluna)
