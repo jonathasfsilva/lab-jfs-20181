@@ -17,6 +17,7 @@ while True:
         plote = ''
         saida.append(plote.join(resultado))
     except:
+        pass
+        for i in saida:
+            print(i)
         break
-for i in saida:
-    print(i)

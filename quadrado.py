@@ -36,6 +36,19 @@ else:
         linha = n-1
 
 valor = quadrado[linha][coluna]
+colunaSemProb = None
 
-print(somasLinhas, somasColunas)
-print(linha, coluna)
+if coluna != 0:
+    colunaSemProb = 0
+else:
+    colunaSemProb = 1
+
+diferenca = None
+
+if somasColunas[colunaSemProb] < somasColunas[coluna]:
+    diferenca = somasColunas[colunaSemProb] - somasColunas[coluna]
+else:
+    diferenca = somasColunas[coluna] - somasColunas[colunaSemProb]
+    diferenca = abs(diferenca)
+
+print(valor+diferenca, valor)
