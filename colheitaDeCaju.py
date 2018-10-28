@@ -1,5 +1,6 @@
 """Colheita de Caju."""
 
+
 def montaMatriz(l, c):
     """Monta a matriz."""
     matriz = []
@@ -12,16 +13,15 @@ def montaMatriz(l, c):
     return matriz
 
 
-def somaMatrizSec(x, y, l, c, m, n, matriz):
-    """Faz a soma da matriz secundaria."""
+def somaMatriz2(x, y, m, n, matriz):
     fatias = []
-
-    for i in range(x, l - m):
-        for j in range(y, c - n):
-            fatia = matriz[i][j:n]
+    for i in range(y, y+m):
+        try:
+            fatia = matriz[i][x:x+n]
             if len(fatia) == n:
                 fatias.append(sum(fatia))
-
+        except:
+            return sum(fatias)
     return sum(fatias)
 
 
@@ -39,9 +39,10 @@ y = 0
 
 for i in range(l):
     for j in range(c):
-        soma = somaMatrizSec(x, y, l, c, m, n, matriz)
+        soma = somaMatriz2(i, j, m, n, matriz)
         y += 1
-        somas.append(soma)
+        if soma != 0:
+            somas.append(soma)
     x += 1
 
-print(somas)
+print(max(somas))
