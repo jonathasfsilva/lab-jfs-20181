@@ -13,7 +13,7 @@ def montaMatriz(l, c):
     return matriz
 
 
-def somaMatriz2(x, y, m, n, matriz):
+def somaMatriz2(x, y, m, n):
     fatias = []
     for i in range(y, y+m):
         try:
@@ -25,24 +25,21 @@ def somaMatriz2(x, y, m, n, matriz):
     return sum(fatias)
 
 
-tamanhos = input().split()
-l, c, m, n = tamanhos
+l, c, m, n = input().split()
 l, c, m, n = int(l), int(c), int(m), int(n)
 
 matriz = montaMatriz(l, c)
 
-somas = []
-
 x = 0
 y = 0
+maior = 0
 
-
-for i in range(l):
-    for j in range(c):
-        soma = somaMatriz2(i, j, m, n, matriz)
+for i in range(l-m+1):
+    for j in range(c-n+1):
+        soma = somaMatriz2(j, i, m, n)
         y += 1
-        if soma != 0:
-            somas.append(soma)
+        if soma > maior:
+            maior = soma
     x += 1
 
-print(max(somas))
+print(maior)
