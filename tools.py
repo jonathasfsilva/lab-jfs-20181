@@ -56,3 +56,53 @@ def insertionSortRev(lista):
             i = i-1
         lista[i] = chave
     return lista
+
+def explorarCima(l, c, campo):
+    """Explora Cima."""
+    if 0 <= c-1 and campo[l-1][c] == '.' or c-1 < 0:
+        return True
+    elif campo[l-1][c] == 't':
+        explorarCima(l-1, c, campo)
+    else:
+        return False
+
+
+def explorarBaixo(l, c, campo, m):
+    """Explora em baixo."""
+    if l+1 <= m and campo[l+1][c] == '.' or l+1 > m:
+        return True
+    elif campo[l+1][c] == 't':
+        explorarBaixo(l+1, c, campo, m)
+    else:
+        return False
+
+
+def explorarEsquerda(l, c, campo):
+    """Explora na esquerda."""
+    if 0 <= c-1 and campo[l][c-1] == '.' or c-1 < 0:
+        return True
+    elif campo[l][c-1] == 't':
+        explorarEsquerda(l, c, campo)
+    else:
+        return False
+
+
+def explorarDireita(l, c, campo, n):
+    """Explora na direita."""
+    if c+1 <= n and campo[l][c+1] == '.' or n < c+1:
+        return True
+    elif campo[l][c+1] == 't':
+        explorarDireita(l, c, campo, n)
+    else:
+        return False
+
+
+def explorar(l, c, campo, m, n):
+    """Funçao master."""
+    cima = explorarCima(l, c, campo)
+    baixo = explorarBaixo(l, c, campo, m)
+    esquerda = explorarEsquerda(l, c, campo)
+    direita = explorarDireita(l, c, campo, n)
+
+    if cima == baixo == esquerda == direita:
+        return True
