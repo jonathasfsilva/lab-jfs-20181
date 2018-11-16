@@ -1,87 +1,96 @@
-"""Lista puplamente encadeada"""
+"""Lista encadeada."""
 
 
-class ListaDuplamenteEncadeada():
+class No:
+    """Classe No."""
 
-    def __init__(self, inicio = None):
-        self._inicio = inicio
+    def __init__(self, dado):
+        """Construtor do No."""
+        self._dado = dado
+        self._proxNo = None
+
+    def getDado(self):
+        """Retorna o dado do no."""
+        return self._dado
+
+    def setDado(self, dado):
+        """Seta o novo dado."""
+        self._dado = dado
+
+    def getProxNo(self):
+        """Retorna a referencia do proximo no"""
+        return self._proxNo
+
+    def setProxNo(self, novoNo):
+        """Seta o novo no."""
+        self._proxNo = novoNo
+
+
+class Lista:
+    """Classe Lista encadeada."""
+
+    def __init__(self):
+        """Construtor da lista."""
+        self._primeiroNo = None
+        self._ultimoNo = None
 
     def __str__(self):
-        s = ''
-        i = self._inicio
-        while i is not None:
-            s += " "+i.getDado()
-        return s
+        """Plota a lista."""
+        if self.estaVazia():
+            return 'A lista esta vazia.'
+        noAtual = self._primeiroNo
+        string = ''
+        while noAtual is not None:
+            string += str(noAtual.getDado()) + ' '
+            noAtual = noAtual.getProxNo()
+        return string
 
-    def getProx(self):
-        return self._prox
+    def inserirInicio(self, valor):
+        """Insere no inicio da lista."""
+        novoNo = No(valor)
+        if self.estaVazia():
+            self._primeiroNo = self._ultimoNo = novoNo
+        else:
+            novoNo.setProxNo(self._primeiroNo)
+            self._primeiroNo = novoNo
 
-    def setProx(self, dado):
-        self._prox = dado
+    def inserirFinal(self, valor):
+        """Insere no final da lista"""
+        novoNo = No(valor)
+        if self.estaVazia():
+            self._primeiroNo = self._ultimoNo = novoNo
+        else:
+            self._ultimoNo.setProxNo(novoNo)
+            self._ultimoNo = novoNo
 
-    def getAnt(self):
-        return self._ant
+    def removerInicio(self):
+        """Remove no inicial da lista."""
+        if self.estaVazia():
+            raise ImportError
+        primeiroNoValor = self._primeiroNo.getDado()
+        if self._primeiroNo is self._ultimoNo:
+            self._primeiroNo = None
+            self._ultimoNo = None
+        else:
+            self._primeiroNo = self._primeiroNo.getProxNo()
+        return primeiroNoValor
 
-    def setAnt(self, dado):
-        self._ant = dado
+    def removerFinal(self):
+        """Remove o ultimo no da lista"""
+        if self.estaVazia():
+            raise IndexError
+        ultimoNoValor = self._ultimoNo.getDado()
+        if self._primeiroNo is self._ultimoNo:
+            self._primeiroNo = None
+            self._ultimoNo = None
+        else:
+            noAtual = self._primeiroNo
+            while noAtual.getProxNo() is not self._ultimoNo:
+                noAtual = noAtual.getProxNo()
+            noAtual.setProxNo(None)
+            self._ultimoNo = noAtual
+        return ultimoNoValor
 
-    def getIncio(self):
-        return self._inicio
-
-    def setInicio(self, inicio):
-        self._inicio = inicio
-
-    def isVazia(self):
-        return self._inicio == None
-
-    def inserirNoInicio(self, dado):
-        novono = No(dado)
-        if not self.isVazia():
-            novono.setProx(self._inicio)
-            self._inicio.setAnt(novono)
-        self._inicio = novono
-
-    def buscar(self, dado):
-        i = self._inicio
-        while i != None or i.getDado() != dado:
-            i = i.getProx()
-        return i
-
-    def remover(self, dado):
-        i = self.buscar(dado)
-
-        if i is not None:
-            if i is not self._inicio:
-                i.getProx().setAnt(i.getAnt())
-            if i.getProx is not None:
-                i.getAnt().setProx(i.getProx())
-
-    def removerDoInicio(self):
-        i = self._inicio
-        if i is not None:
-            if self._inicio.getProx() is not None:
-               self._inicio.getProx().setAnt(None)
-            self._inicio = self._inicio.getProx()
-        return i
-
-
-class Fila(ListaDuplamenteEncadeada):
-
-    def __init__(self, inicio, fim):
-        super(Fila).__init__(inicio)
-        self._fim = fim
-
-    def removerDoFim(self):
-        if self._fim is not None:
-            if self._fim.getAnt() is not None:
-                self._fim.getAnt().setProx(None)
-            self._fim = None
-        return self._fim
-
-
-class Pilha(ListaDuplamenteEncadeada):
-    def push(self, dado):
-        self.inserirNoInicio(dado)
-
-    def pop(self):
-        return self.removerDoInicio()
+    def estaVazia(self):
+        """Lista vazia, True ou False"""
+        return self._primeiroNo is None
