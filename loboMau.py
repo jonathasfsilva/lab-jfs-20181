@@ -23,7 +23,7 @@ def montaPasto(m, n):
 
 
 def explorar(lobo):
-    if
+    """Falta"""
 
 
 
