@@ -1,9 +1,8 @@
 """Botas Trocadas."""
-from time import time
 
 
 def montaLista(n):
-    """Monta lista de calcados"""
+    """Monta lista de calcados."""
     calcados = []
     for i in range(n):
         entrada = input().split()
@@ -11,21 +10,29 @@ def montaLista(n):
     return calcados
 
 
+def minimo(x, y):
+    """Retorna o minimo entre x e y."""
+    if x <= y:
+        return x
+    elif y < x:
+        return y
+
+
 n = int(input())
 
 calcados = montaLista(n)
 
-ti = time()
-
 pares = 0
 
-for i in range(len(calcados)):
-    for j in range(i, len(calcados)):
-        if True:
-            if calcados[j][0] == calcados[i][0] and calcados[i][1] != calcados[j][1]:
-                pares += 1
-                break
+for i in range(30, 61):
+    d = 0
+    e = 0
+    for j in range(n):
+        if calcados[j][0] == i and calcados[j][1] == 'E':
+            e += 1
+        elif calcados[j][0] == i and calcados[j][1] == 'D':
+            d += 1
 
-tf = time()
+    pares += minimo(e, d)
+
 print(pares)
-print(tf - ti)
