@@ -274,16 +274,28 @@ class Arvore():
     def minimo(self, no):
         """Retorna o minimo da arvore."""
         if no is not None:
-            while no.getDado() is not None:
+            while no.getEsquerdo() is not None:
                 no = no.getEsquerdo()
-            return no.getDado()
+            return no
 
     def maximo(self, no):
         """Retorna o maximo da arvore."""
         if no is not None:
-            while no.getDado is not No:
+            while no.getDireito() is not None:
                 no = no.getDireito()
-            return no.getDado()
+            return no
+
+    def sucessor(self, no):
+        """Retorna o sucessor do no."""
+        if no is not None:
+            if no.getDireito() is not None:
+                return self.minimo(no.getDireito())
+            else:
+                pai = no.getPai()
+                while pai is not None and no is pai.getDireito():
+                    no = pai
+                    pai = no.getPai()
+                    return pai
 
     def estaVazia(self):
         """Retorna True se esta vazia e False se estiver vazia."""
@@ -309,6 +321,29 @@ class Arvore():
             y.setEsquerdo(no)
         else:
             y.setDireito(no)
+
+    def remove(self, no):
+        """Remove um no da arvore."""
+
+        # BUG: removendo o sucessor!!!!
+
+        if (no.getEsquerdo is None) or (no.getDireito() is None):
+            y = no
+        else:
+            y = self.sucessor(no)
+        if y.getEsquerdo() is not None:
+            x = y.getEsquerdo()
+        else:
+            x = y.getDireito()
+        if x is not None:
+            x.setPai(y.getPai())
+        if y.getPai() is None:
+            self.setRaiz(x)
+        else:
+            if y == y.getPai().getEsquerdo():
+                y.getPai().setEsquerdo(x)
+            else:
+                y.getPai().setDireito(x)
 
     def emOrdem(self, x):
         """Plota a arvore em ordem."""
@@ -340,4 +375,8 @@ for i in l:
     arv.insere(no)
 
 arv.emOrdem(arv.getRaiz())
-
+print()
+print(arv.sucessor(arv.getRaiz()))
+print(arv.getRaiz())
+arv.remove(arv.getRaiz())
+arv.emOrdem(arv.getRaiz())
