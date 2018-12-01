@@ -304,6 +304,16 @@ class Arvore():
         else:
             return False
 
+    def busca(self, k):
+        """Busca um no na arvore."""
+        x = self.getRaiz()
+        while x is not None and k != x.getChave():
+            if k < x.getChave():
+                x = x.getEsquerdo()
+            else:
+                x = x.getDireito()
+        return x
+
     def insere(self, no):
         """Insere um No na arvore."""
         y = None
@@ -322,17 +332,14 @@ class Arvore():
         else:
             y.setDireito(no)
 
-    def remove(self, no):
+    def remove(self, z):
         """Remove um no da arvore."""
-
-        # BUG: removendo o sucessor!!!!
-
-        if (no.getEsquerdo is None) or (no.getDireito() is None):
-            y = no
+        if (z.getEsquerdo() is None) or (z.getDireito() is None):
+            y = z
         else:
-            y = self.sucessor(no)
+            y = self.sucessor(z)
         if y.getEsquerdo() is not None:
-            x = y.getEsquerdo()
+            x = y.getDireito()
         else:
             x = y.getDireito()
         if x is not None:
@@ -344,6 +351,10 @@ class Arvore():
                 y.getPai().setEsquerdo(x)
             else:
                 y.getPai().setDireito(x)
+
+        if y != z:
+            z.setChave(y.getChave())
+        return y
 
     def emOrdem(self, x):
         """Plota a arvore em ordem."""
@@ -366,7 +377,9 @@ class Arvore():
             self.posOrdem(x.getDireito())
             print(x.getChave(), end = ' ')
 
-l = [3,2,1,4,6,0,10,55]
+
+
+l = [3,0,6,1,5,-30,55,-25,50,-10,99]
 dado = 'bsi'
 arv = Arvore()
 
@@ -376,7 +389,7 @@ for i in l:
 
 arv.emOrdem(arv.getRaiz())
 print()
-print(arv.sucessor(arv.getRaiz()))
-print(arv.getRaiz())
-arv.remove(arv.getRaiz())
+
+arv.remove(arv.busca(-10))
+
 arv.emOrdem(arv.getRaiz())
