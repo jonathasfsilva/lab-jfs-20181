@@ -1,3 +1,10 @@
+"""Arvore AVL.
+
+    classe: ArvoreAvl(Arvore)
+
+    implementada por Jonathas F. Silva
+"""
+
 from arvore import No
 from arvore import Arvore
 
@@ -92,5 +99,3 @@ arv.rotaDireita(arv.getRaiz())
 print('raiz ->', arv.getRaiz().getDado())
 print('altura ->', arv.altura(arv.getRaiz()))
 print('balanço ->', arv.calFatorBalance(arv.getRaiz()))
-
-# FALTA FAZER COM QUE OS NOS FOLHAS APONTEM PRA O NIL.
