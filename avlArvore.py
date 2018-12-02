@@ -5,15 +5,10 @@ from arvore import Arvore
 class ArvoreAvl(Arvore):
     """Classe: Arvore AVL."""
 
-    nil = No(None, None)
-    nil.setPai(None)
-    nil.setDireito(None)
-    nil.setEsquerdo(None)
-
     def __init__(self):
         """Construtor da arvore AVL."""
         super().__init__()
-        self.__raiz = self.nil
+        self.__raiz = None
 
     def maior(self, h1, h2):
         """Retorna o maximo da altura da arvore."""
@@ -30,23 +25,11 @@ class ArvoreAvl(Arvore):
         h2 = self.altura(x.getDireito())
         return self.maior(h1, h2)
 
-    def insere(self, no):
-        """Insere um No na arvore."""
-        y = self.nil
-        x = self.getRaiz()
-        while x is not self.nil:
-            y = x
-            if no.getChave() < x.getChave():
-                x = x.getEsquerdo()
-            else:
-                x = x.getDireito()
-        no.setPai(y)
-        if y is self.nil:
-            self.setRaiz(no)
-        elif no.getChave() < y.getChave():
-            y.setEsquerdo(no)
-        else:
-            y.setDireito(no)
+    def calFatorBalance(self, x):
+        """Calcala o fator de balanceamento das subarvores."""
+        esq = x.getEsquerdo()
+        dir = x.getDireito()
+        return self.altura(esq) - self.altura(dir)
 
     def rotaEsquerda(self, x):
         """Rotaçao simples a esquerda."""
@@ -54,7 +37,7 @@ class ArvoreAvl(Arvore):
         x.setDireito(y.getEsquerdo())
         y.getEsquerdo().setPai(x)
         y.setPai(x.getPai())
-        if x.getPai() is self.nil:
+        if x.getPai() is None:
             self.setRaiz(y)
         elif x is x.getPai().getEsquerdo():
             x.getEsquerdo().setPai(y)
@@ -63,11 +46,26 @@ class ArvoreAvl(Arvore):
         y.setEsquerdo(x)
         x.setPai(y)
 
+    def rotaDireita(self, x):
+        """Rotaçao simples a direita."""
+        y = x.getEsquerdo()
+        x.setEsquerdo(y.getDireito())
+        y.getDireito().setPai(x)
+        y.setPai(x.getPai())
+        if x.getPai() is None:
+            self.setRaiz(y)
+        elif x is x.getPai().getDireito():
+            x.getDireito().setPai(y)
+        else:
+            x.getEsquerdo().setPai(y)
+        y.setDireito(x)
+        x.setPai(y)
 
 
-ll = [3,0,6,1,5,-30,55,-25,50,-10,99]
 
-l = [3, 2, 1]
+l = [3,0,6,1,5,-30,55,-25,50,-10,99,100,101,102]
+
+ll = [3, 2, 4]
 
 dado = 'bsi'
 arv = ArvoreAvl()
@@ -76,9 +74,23 @@ for i in l:
     no = No(i, str(i))
     arv.insere(no)
 
+arv.getRaiz()
+print(arv.getRaiz())
+
+
+arv.getRaiz()
 arv.emOrdem(arv.getRaiz())
 print()
-print('raiz -', arv.getRaiz().getDado())
-# arv.rotaEsquerda(arv.getRaiz())
+arv.preOrdem(arv.getRaiz())
+print()
+arv.posOrdem(arv.getRaiz())
+print()
+print('raiz ->', arv.getRaiz().getDado())
+arv.rotaEsquerda(arv.getRaiz())
+print('raiz ->', arv.getRaiz().getDado())
+arv.rotaDireita(arv.getRaiz())
+print('raiz ->', arv.getRaiz().getDado())
+print('altura ->', arv.altura(arv.getRaiz()))
+print('balanço ->', arv.calFatorBalance(arv.getRaiz()))
 
 # FALTA FAZER COM QUE OS NOS FOLHAS APONTEM PRA O NIL.
