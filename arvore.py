@@ -108,6 +108,18 @@ class Arvore():
                 no = no.getDireito()
             return no
 
+    def antecessor(self, no):
+        """Retorna o antecessor do no."""
+        if no is not None:
+            if no.getEsquerdo() is not None:
+                return self.maximo(no.getEsquerdo)
+            else:
+                pai = no.getPai()
+                while pai is not None and no is pai.getEsquerdo():
+                    no = pai
+                    pai = no.getPai()
+                    return pai
+
     def sucessor(self, no):
         """Retorna o sucessor do no."""
         if no is not None:
@@ -183,7 +195,7 @@ class Arvore():
         """Plota a arvore em ordem."""
         if x is not None:
             self.emOrdem(x.getEsquerdo())
-            print(x.getChave(), end = ' ')
+            print(x.getChave(), end = '')
             self.emOrdem(x.getDireito())
 
     def preOrdem(self, x):
