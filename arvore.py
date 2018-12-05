@@ -134,7 +134,7 @@ class Arvore():
 
     def estaVazia(self):
         """Retorna True se esta vazia e False se estiver vazia."""
-        if self.getRaiz() is not None:
+        if self.getRaiz() is None:
             return True
         else:
             return False
@@ -195,7 +195,7 @@ class Arvore():
         """Plota a arvore em ordem."""
         if x is not None:
             self.emOrdem(x.getEsquerdo())
-            print(x.getChave(), end = '')
+            print(x.getChave(), end = ' ')
             self.emOrdem(x.getDireito())
 
     def preOrdem(self, x):
