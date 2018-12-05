@@ -12,10 +12,17 @@ from arvore import Arvore
 class ArvoreAvl(Arvore):
     """Classe: Arvore AVL."""
 
+    nil = No(None, None)
+    nil.setPai(None)
+    nil.setEsquerdo(None)
+    nil.setDireito(None)
+
     def __init__(self):
         """Construtor da arvore AVL."""
         super().__init__()
         self.__raiz = None
+        self.__esquerdo = self.nil
+        self.__direito = self.nil
 
     def maior(self, h1, h2):
         """Retorna o maximo da altura da arvore."""
@@ -68,11 +75,18 @@ class ArvoreAvl(Arvore):
         y.setDireito(x)
         x.setPai(y)
 
+    def rotaEsquerdaDupla(self, x):
+        """Rotaçao dupla a esquerda"""
+        self.rotaEsquerda(x)
+        self.rotaDireita(x.getPai())
 
 
-l = [3,0,6,1,5,-30,55,-25,50,-10,99,100,101,102]
+
+lll = [3,0,6,1,5,-30,55,-25,50,-10,99,100,101,102]
 
 ll = [3, 2, 4]
+
+l = [30, 10, 20]
 
 dado = 'bsi'
 arv = ArvoreAvl()
@@ -88,14 +102,4 @@ print(arv.getRaiz())
 arv.getRaiz()
 arv.emOrdem(arv.getRaiz())
 print()
-arv.preOrdem(arv.getRaiz())
-print()
-arv.posOrdem(arv.getRaiz())
-print()
-print('raiz ->', arv.getRaiz().getDado())
-arv.rotaEsquerda(arv.getRaiz())
-print('raiz ->', arv.getRaiz().getDado())
-arv.rotaDireita(arv.getRaiz())
-print('raiz ->', arv.getRaiz().getDado())
-print('altura ->', arv.altura(arv.getRaiz()))
-print('balanço ->', arv.calFatorBalance(arv.getRaiz()))
+arv.rotaEsquerdaDupla(arv.busca(10))
