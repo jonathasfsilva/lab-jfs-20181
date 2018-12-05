@@ -71,10 +71,10 @@ for i in range(len(comandos)):
                 no = arvore.busca(int(j[2:]))
                 if arvore.estaVazia():
                     print(0)
-                elif arvore.minimo(no) == no:
+                elif no.getEsquerdo() is None:
                     print(0)
                 else:
-                    print(arvore.antecessor(no))
+                    print(arvore.antecessor(no).getDado())
             elif j == 'PRE':
                 if arvore.estaVazia():
                     print(0)

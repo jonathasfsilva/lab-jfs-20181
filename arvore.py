@@ -112,13 +112,13 @@ class Arvore():
         """Retorna o antecessor do no."""
         if no is not None:
             if no.getEsquerdo() is not None:
-                return self.maximo(no.getEsquerdo)
+                return self.maximo(no.getEsquerdo())
             else:
                 pai = no.getPai()
                 while pai is not None and no is pai.getEsquerdo():
                     no = pai
                     pai = no.getPai()
-                    return pai
+            return pai
 
     def sucessor(self, no):
         """Retorna o sucessor do no."""
@@ -130,7 +130,7 @@ class Arvore():
                 while pai is not None and no is pai.getDireito():
                     no = pai
                     pai = no.getPai()
-                    return pai
+        return pai
 
     def estaVazia(self):
         """Retorna True se esta vazia e False se estiver vazia."""
