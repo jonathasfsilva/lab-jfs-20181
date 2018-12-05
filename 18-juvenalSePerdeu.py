@@ -64,18 +64,17 @@ for i in range(len(comandos)):
 
         for j in comandos[i+1:(i+qtd)+1]:
             if j[0] == 'A':
-                arvore.insere(No(int(j[2]), int(j[2])))
+                arvore.insere(No(int(j[2:]), int(j[2:])))
             elif j[0] == 'B':
-                arvore.remove(arvore.busca(int(j[2])))
+                arvore.remove(arvore.busca(int(j[2:])))
             elif j[0] == 'C':
-                no = arvore.busca(int(j[2]))
+                no = arvore.busca(int(j[2:]))
                 if arvore.estaVazia():
                     print(0)
-                elif no.getChave() == arvore.minimo(no).getChave():
+                elif arvore.minimo(no) == no:
                     print(0)
                 else:
-                    # IMPLEMENTAR O ANTECESSOR!!!!
-                    print(arvore.sucessor(no))
+                    print(arvore.antecessor(no))
             elif j == 'PRE':
                 if arvore.estaVazia():
                     print(0)
